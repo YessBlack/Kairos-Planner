@@ -19,7 +19,168 @@
 </head>
 
 <body>
-  <h1>Kairos Planner</h1>
+  <header class="app-header">
+    <div class="container">
+      <div class="header-content">
+        <img src="img/logo.svg" alt="">
+        <div class="brand">
+          <p>Kairos</p>
+          <span>PLANNER</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div class="row mt-2 gy-4">
+      <div class="col-12 col-lg-5 col-xl-4">
+        <div class="task-form-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Nueva tarea</h2>
+            <span class="task-form-icon">
+              <i class="fa-solid fa-pen"></i>
+            </span>
+          </div>
+
+          <form>
+            <div class="mb-3">
+              <label for="titulo" class="form-label">Título</label>
+              <input type="text" class="form-control" id="titulo" placeholder="¿Qué necesitas hacer?">
+            </div>
+
+            <div class="mb-1">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <textarea class="form-control" id="descripcion" rows="4" maxlength="500"
+                placeholder="Agrega más detalles"></textarea>
+            </div>
+
+            <div class="mb-4">
+              <label for="fechaVencimiento" class="form-label">Fecha de vencimiento</label>
+              <input type="date" class="form-control" id="fechaVencimiento" placeholder="mm/dd/yyyy">
+            </div>
+
+            <button type="submit" class="btn btn-add-task text-white w-100">
+              <i class="bi bi-plus-lg me-1"></i> Agregar tarea
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-7 col-xl-8">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 class="tasks-section-title mb-0">Tareas actuales</h1>
+          <span class="tasks-count">3 tareas</span>
+        </div>
+
+        <!-- Card Pendiente -->
+        <div class="task-card priority-media d-flex gap-3">
+          <input class="form-check-input mt-1" type="checkbox">
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="task-card-header">
+                <span class="task-title">Revisar informes financieros Q3</span>
+                <span class="badge-status badge-pendiente">Pendiente</span>
+              </div>
+
+              <div class="dropdown">
+                <button class="btn task-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen me-2"></i>Editar</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash me-2"></i>Eliminar</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="task-description mb-0 mt-1">
+              Analizar los datos del trimestre y preparar la presentación para la reunión de la junta directiva de
+              mañana.
+            </p>
+            <div class="task-meta">
+              <span><i class="fa-regular fa-calendar"></i> <span class="date">24 oct 2023</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Urgente -->
+        <div class="task-card priority-alta d-flex gap-3">
+          <input class="form-check-input mt-1" type="checkbox">
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="task-card-header">
+                <span class="task-title">Llamada de feedback con cliente</span>
+                <span class="badge-status badge-urgente">Urgente</span>
+              </div>
+
+              <div class="dropdown">
+                <button class="btn task-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen me-2"></i>Editar</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash me-2"></i>Eliminar</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="task-description mb-0 mt-1">
+              Discutir los cambios propuestos en la estructura de navegación con los stakeholders principales.
+            </p>
+            <div class="task-meta">
+              <span><i class="fa-regular fa-calendar"></i> <span class="date">23 oct 2023</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card completada -->
+        <div class="task-card priority-completada is-completed d-flex gap-3">
+          <input class="form-check-input mt-1" type="checkbox" checked>
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="task-card-header">
+                <span class="task-title">Enviar propuesta al cliente</span>
+                <span class=" badge-status badge-completada">Completada</span>
+              </div>
+
+              <div class="dropdown">
+                <button class="btn task-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen me-2"></i>Editar</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash me-2"></i>Eliminar</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="task-description mb-0 mt-1">
+              Documento enviado con los términos y condiciones acordados en la última reunión.
+            </p>
+            <div class="task-meta">
+              <span><i class="fa-regular fa-calendar"></i> <span class="date">20 oct 2023</span></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>

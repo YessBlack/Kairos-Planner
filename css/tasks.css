@@ -1,0 +1,49 @@
+.tasks {
+  padding: 1rem;
+  border: 1px solid #e8e8e8;
+  border-radius: 1rem;
+}
+
+.taskTitle {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.btn-group .dropdown-toggle::after {
+  display: none;
+}
+
+.task {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-text);
+  border-right: 4px solid var(--color-text);
+  border-bottom: 4px solid var(--color-text);
+}
+
+.taskBody h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.taskBody p {
+  font-size: 15px;
+  color: var(--color-text);
+}
+
+.countSubTasks {
+  color: var(--color-success);
+  font-size: 15px;
+}
+
+.btnDropdown {
+  border: 1px solid var(--color-text) !important;
+  border-right: 4px solid var(--color-text) !important;
+  border-bottom: 4px solid var(--color-text) !important;
+}
+
+.btnDropdown:hover {
+  backdrop-filter: blur(4px) brightness(1.2);
+  transform: scale(1.01);
+  background-color: color-mix(in srgb, var(--color-primary) 10%, white);
+}

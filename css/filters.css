@@ -6,72 +6,91 @@
 }
 
 .filter {
+  --state-color: var(--color-primary);
   padding: 16px;
+  border: 1px solid var(--color-task);
+  background-color: #fff;
   border-radius: 16px;
   transition: all 0.5s ease;
+  position: relative;
+  padding-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.filter::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 6px;
+  width: var(--filter-percent, 0%);
+  background-color: var(--state-color);
+  transition: width 0.3s ease;
+}
+
+.filter.active {
+  background-color: color-mix(in srgb, var(--state-color) 8%, transparent);
+  border-color: var(--state-color);
 }
 
 .filter-title {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .filter-text {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--color-text-sm);
 }
 
 .filter-count {
   font-size: 24px;
   font-weight: bold;
+  color: var(--state-color);
 }
 
 .all {
-  border: 1px solid var(--color-primary);
-  border-bottom: 8px solid var(--color-primary);
+  --state-color: var(--color-task);
 }
 
 .all:hover {
-  background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  background-color: color-mix(in srgb, var(--state-color) 8%, transparent);
 }
 
 .no-started {
-  border: 1px solid var(--color-info);
-  border-bottom: 8px solid var(--color-info);
+  --state-color: var(--color-info);
 }
 
 .no-started:hover {
-  background-color: color-mix(in srgb, var(--color-info) 10%, transparent);
+  background-color: color-mix(in srgb, var(--state-color) 8%, transparent);
 }
 
 .in-progress {
-  border: 1px solid var(--color-warning);
-  border-bottom: 8px solid var(--color-warning);
+  --state-color: var(--color-warning);
 }
 
 .in-progress:hover {
-  background-color: color-mix(in srgb, var(--color-warning) 10%, transparent)
+  background-color: color-mix(in srgb, var(--state-color) 8%, transparent);
 }
 
 .completed {
-  border: 1px solid var(--color-success);
-  border-bottom: 8px solid var(--color-success);
+  --state-color: var(--color-success);
 }
 
 .completed:hover {
-  background-color: color-mix(in srgb, var(--color-success) 10%, transparent)
+  background-color: color-mix(in srgb, var(--state-color) 8%, transparent);
 }
 
 .cancelled {
-  border: 1px solid var(--color-danger);
-  border-bottom: 8px solid var(--color-danger);
+  --state-color: var(--color-danger);
 }
 
 .cancelled:hover {
-  background-color: color-mix(in srgb, var(--color-danger) 10%, transparent)
+  background-color: color-mix(in srgb, var(--state-color) 8%, transparent);
 }
 
 .filter:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
+  box-shadow: 0 10px 18px color-mix(in srgb, var(--state-color) 14%, transparent);
   cursor: pointer;
 }

@@ -1,0 +1,26 @@
+{
+  "name": "kairos-planner",
+  "version": "1.0.0",
+  "description": "Una aplicación completa de planificación y gestión de productividad diseñada para ayudarte a organizar tu tiempo y tareas de manera eficiente.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YessBlack/Kairos-Planner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YessBlack/Kairos-Planner/issues"
+  },
+  "homepage": "https://github.com/YessBlack/Kairos-Planner#readme",
+  "devDependencies": {
+    "standard": "^17.1.2"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}

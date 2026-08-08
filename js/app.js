@@ -1,9 +1,23 @@
-lucide.createIcons();
+import { getDateNow } from './utils/dateUtils.js'
+import { renderFilters } from './views/renderFilters.js'
+import { renderForm } from './views/renderForm.js'
+import { renderHeader } from './views/renderHeader.js'
+import { renderTasks } from './views/renderTasks.js'
 
-const currentDate = document.getElementById("current-date")
+const renderDateNowHeader = () => {
+  const currentDate = document.getElementById('current-date')
+  currentDate.textContent = getDateNow()
+}
 
-const date = new Date();
-const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-const formattedDate = date.toLocaleDateString('en-US', options);
+const init = () => {
+  renderHeader()
+  renderDateNowHeader()
+  renderForm()
+  renderTasks()
+  renderFilters()
 
-currentDate.textContent = formattedDate;
+  // eslint-disable-next-line no-undef
+  lucide.createIcons()
+}
+
+init()

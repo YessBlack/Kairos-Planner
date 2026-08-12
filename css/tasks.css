@@ -17,13 +17,13 @@
   gap: 3px;
   justify-content: space-between;
   background-color: color-mix(in srgb, var(--color-task) 40%, white);
-  padding: 1.1rem;
+  padding: .8rem 1rem;
   border-radius: 1rem 1rem 0 0;
   margin: 0;
 }
 
 .taskTitle {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
 }
 
@@ -79,7 +79,7 @@
 .btnDropdown:hover {
   backdrop-filter: blur(4px) brightness(1.2);
   transform: scale(1.01);
-  background-color: color-mix(in srgb, var(--color-primary) 10%, white);
+  background-color: color-mix(in srgb, var(--color-text-sm) 10%, white);
 }
 
 .text-warning {

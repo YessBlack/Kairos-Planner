@@ -10,20 +10,15 @@ export const TaskCard = (task) => {
   const statusMarkup = getStatusMarkup(task)
 
   return `
-    <div class="task d-flex justify-content-between gap-5 ${canceledClass}">
+    <div class="task d-flex justify-content-between gap-5 ${canceledClass} w-100">
       <div class="taskBody w-100">
         <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex align-items-center gap-2">
             <h3 class="mb-0">${task.title}</h3>
             ${checkIcon}
           </div>
-          <span class="fw-bold text-${task.status}">${task.percent}%</span>
         </div>
         <p>${task.category}</p>
-
-        <div class="progress" role="progressbar" aria-valuenow="${task.percent}" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar progress-bar-striped bg-${task.status}" style="width: ${task.percent}%"></div>
-        </div>
 
         <div class="countSubTasks d-flex flex-column gap-2 mt-3">
           <div class="d-flex align-items-center gap-3">
@@ -37,6 +32,13 @@ export const TaskCard = (task) => {
             </div>
             ${statusMarkup}
           </div>
+        </div>
+
+        <div class="w-100 d-flex align-items-center gap-2 mt-2">
+          <div class="progress flex-grow-1" role="progressbar" aria-valuenow="${task.percent}" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped bg-${task.status}" style="width: ${task.percent}%"></div>
+          </div>
+          <span>${task.percent}%</span>
         </div>
       </div>
 

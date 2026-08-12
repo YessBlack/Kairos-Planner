@@ -32,7 +32,6 @@ textarea {
 .formTitle {
   font-size: 20px;
   font-weight: 600;
-  color: var(--color-primary);
 }
 
 .btnAdd {

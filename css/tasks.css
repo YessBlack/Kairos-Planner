@@ -22,14 +22,9 @@
   margin: 0;
 }
 
-.taskHeader svg {
-  color: var(--color-primary);
-}
-
 .taskTitle {
   font-size: 20px;
   font-weight: 600;
-  color: var(--color-primary);
 }
 
 .btn-group .dropdown-toggle::after {

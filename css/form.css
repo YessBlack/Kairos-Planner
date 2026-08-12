@@ -54,3 +54,9 @@ textarea {
   background-color: color-mix(in srgb, var(--color-primary) 85%, white);
   transform: scale(1.01);
 }
+
+.form-text {
+  font-size: 10px;
+  font-style: italic;
+  color: #adb1b7;
+}

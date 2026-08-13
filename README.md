@@ -36,6 +36,10 @@ Gestión del proyecto y seguimiento de tareas:
 Diseño de la interfaz de usuario:
 [https://www.figma.com/design/Dcnq31tpI7Hbi36AG4rbj0/Untitled?node-id=0-1&t=Lc9QCN0Ld9qN8FN6-1](https://www.figma.com/design/Dcnq31tpI7Hbi36AG4rbj0/Untitled?node-id=0-1&t=Lc9QCN0Ld9qN8FN6-1)
 
+### 🎨 Deploye
+URL del Proyecto:
+[https://yessblack.github.io/Kairos-Planner/](https://yessblack.github.io/Kairos-Planner/)
+
 ## 📁 Estructura del Proyecto
 
 ```

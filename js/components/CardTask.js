@@ -49,9 +49,9 @@ export const TaskCard = (task) => {
             <i data-lucide="ellipsis-vertical" width="18" height="18"></i>
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Editar Tarea</a></li>
-            <li><a class="dropdown-item" href="#">Agregar SubTareas</a></li>
-            <li><a class="dropdown-item" href="#">Eliminar Tarea</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar Tarea</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar SubTareas</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Eliminar Tarea</a></li>
           </ul>
         </div>
       </div>

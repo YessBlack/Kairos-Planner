@@ -1,0 +1,62 @@
+.alert {
+  text-align: left !important;
+}
+
+.title-primary {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.title-success {
+  color: var(--color-success);
+  font-weight: 700;
+}
+
+.title-warning {
+  color: var(--color-warning);
+  font-weight: 700;
+}
+
+.title-info {
+  color: var(--color-info);
+  font-weight: 700;
+}
+
+.title-danger {
+  color: var(--color-danger);
+  font-weight: 700;
+}
+
+.alert-primary {
+  color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-primary) 15%, white);
+  border-color: color-mix(in srgb, var(--color-primary) 30%, white);
+}
+
+.alert-success {
+  color: var(--color-success);
+  background-color: color-mix(in srgb, var(--color-success) 15%, white);
+  border-color: color-mix(in srgb, var(--color-success) 30%, white);
+}
+
+.alert-warning {
+  color: var(--color-warning);
+  background-color: color-mix(in srgb, var(--color-warning) 15%, white);
+  border-color: color-mix(in srgb, var(--color-warning) 30%, white);
+}
+
+.alert-info {
+  color: var(--color-info);
+  background-color: color-mix(in srgb, var(--color-info) 15%, white);
+  border-color: color-mix(in srgb, var(--color-info) 30%, white);
+}
+
+.alert-danger {
+  color: var(--color-danger);
+  background-color: color-mix(in srgb, var(--color-danger) 15%, white);
+  border-color: color-mix(in srgb, var(--color-danger) 30%, white);
+}
+
+.alert i {
+  color: currentColor;
+}

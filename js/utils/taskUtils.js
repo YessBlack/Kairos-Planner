@@ -1,15 +1,32 @@
-export const getStatusMarkup = (task) => {
-  if (task.completed) {
-    return `<span class="status-badge status-badge-success">${task.statusText}</span>`
-  }
+const STATUS_LABELS = {
+  cancelled: { label: 'Cancelada', className: 'status-badge-danger' },
+  completed: { label: 'Completada', className: 'status-badge-success' },
+  'no-started': { label: 'No iniciada', className: 'status-badge-secondary' },
+  'in-progress': { label: 'En progreso', className: 'status-badge-info' }
+}
 
-  if (task.canceled) {
-    return `<span class="status-badge status-badge-danger">${task.statusText}</span>`
-  }
+export const getTaskStatus = (task) => {
+  if (task.canceled) return 'cancelled'
+  if (task.completed) return 'completed'
+  if (task.percent === 0) return 'no-started'
+  return 'in-progress'
+}
 
-  if (task.statusText) {
-    return `<span class="fw-semibold text-${task.statusTextColor}">${task.statusText}</span>`
-  }
+export const getStatusBadge = (task) => {
+  const status = getTaskStatus(task)
+  const { label, className } = STATUS_LABELS[status]
+  return `<span class="status-badge ${className}">${label}</span>`
+}
 
-  return ''
+export const getUrgencyMarkup = (task) => {
+  const status = getTaskStatus(task)
+  if (status !== 'in-progress' || !task.statusText) return ''
+  return `<span class="text-${task.statusTextColor}">${task.statusText}</span>`
+}
+
+export const getTaskProgress = (task) => {
+  const total = task.subtasks.length
+  const done = task.subtasks.filter((s) => s.done).length
+  const percent = total ? Math.round((done / total) * 100) : 0
+  return { total, done, percent }
 }

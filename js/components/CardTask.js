@@ -1,4 +1,4 @@
-import { getStatusMarkup } from '../utils/taskUtils.js'
+import { getStatusBadge, getTaskProgress, getUrgencyMarkup } from '../utils/taskUtils.js'
 
 export const TaskCard = (task) => {
   const canceledClass = task.canceled ? 'is-canceled' : ''
@@ -7,16 +7,22 @@ export const TaskCard = (task) => {
     ? '<i data-lucide="check-circle-2" width="20" height="20" class="task-check"></i>'
     : ''
 
-  const statusMarkup = getStatusMarkup(task)
+  const statusBadge = getStatusBadge(task)
+  const urgencyMarkup = getUrgencyMarkup(task)
+  const { total, done, percent } = getTaskProgress(task)
 
   return `
     <div class="task d-flex justify-content-between gap-5 ${canceledClass} w-100">
       <div class="taskBody w-100">
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="mb-2">
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
           <div class="d-flex align-items-center gap-2">
             <h3 class="mb-0">${task.title}</h3>
             ${checkIcon}
           </div>
+          ${statusBadge}
         </div>
         <p>${task.category}</p>
 
@@ -24,21 +30,21 @@ export const TaskCard = (task) => {
           <div class="d-flex align-items-center gap-3">
             <div class="d-flex gap-1 align-items-center">
               <i data-lucide="check-circle" width="16" height="16"></i>
-              <span>${task.totalTasks} Tasks</span>
+              <span>${done}/${total} Tasks</span>
             </div>
             <div class="d-flex align-items-center gap-1 text-muted">
               <i data-lucide="calendar" width="16" height="16"></i>
               <span>${task.dateLabel}</span>
             </div>
-            ${statusMarkup}
+            ${urgencyMarkup}
           </div>
         </div>
 
         <div class="w-100 d-flex align-items-center gap-2 mt-2">
-          <div class="progress flex-grow-1" role="progressbar" aria-valuenow="${task.percent}" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped bg-${task.status}" style="width: ${task.percent}%"></div>
+          <div class="progress flex-grow-1" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped bg-${task.status}" style="width: ${percent}%"></div>
           </div>
-          <span>${task.percent}%</span>
+          <span>${percent}%</span>
         </div>
       </div>
 
@@ -49,9 +55,21 @@ export const TaskCard = (task) => {
             <i data-lucide="ellipsis-vertical" width="18" height="18"></i>
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Editar Tarea</a></li>
-            <li><a class="dropdown-item" href="#">Agregar SubTareas</a></li>
-            <li><a class="dropdown-item" href="#">Eliminar Tarea</a></li>
+            <li>
+              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalEditTask">
+                Editar Tarea
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item btnOpenSubtasks" href="#" data-task-id="${task.id}" data-bs-toggle="modal" data-bs-target="#modalAddSubtask">
+                SubTareas
+              </a>
+            </li>          
+            <li>
+              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDeleteTask">
+                Eliminar Tarea
+              </a>
+            </li>
           </ul>
         </div>
       </div>

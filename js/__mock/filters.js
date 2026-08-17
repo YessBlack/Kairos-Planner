@@ -1,38 +1,58 @@
+import { tasks } from './task.js'
+
+const getTaskStatus = (task) => {
+  if (task.canceled) return 'cancelled'
+  if (task.completed) return 'completed'
+  if (task.percent === 0) return 'no-started'
+  return 'in-progress'
+}
+
+const total = tasks.length
+const countByType = tasks.reduce((acc, task) => {
+  const status = getTaskStatus(task)
+  acc[status] = (acc[status] || 0) + 1
+  return acc
+}, {})
+
+const pct = (count) => (total ? Math.round((count / total) * 100) : 0)
+
 export const filters = [
   {
     type: 'all',
     title: 'Todas',
-    text: 'Tienes 10 Tareas activas no iniciadas lo que corresponde a 10%',
-    count: 10,
+    text: `Tienes ${total} Tareas activas en total lo que corresponde al 100%`,
+    count: total,
     percent: 100,
     defaultActive: true
   },
   {
     type: 'no-started',
     title: 'No iniciadas',
-    text: 'Tienes 10 Tareas activas no iniciadas lo que corresponde a 10%',
-    count: 10,
-    percent: 10
+    text: `Tienes ${countByType['no-started'] || 0} Tareas activas no iniciadas lo que corresponde a ${pct(countByType['no-started'] || 0)}%`,
+    count: countByType['no-started'] || 0,
+    percent: pct(countByType['no-started'] || 0)
   },
   {
     type: 'in-progress',
     title: 'En progreso',
-    text: 'Tienes 10 Tareas activas en progreso lo que corresponde a 10%',
-    count: 10,
-    percent: 45
+    text: `Tienes ${countByType['in-progress'] || 0} Tareas activas en progreso lo que corresponde a ${pct(countByType['in-progress'] || 0)}%`,
+    count: countByType['in-progress'] || 0,
+    percent: pct(countByType['in-progress'] || 0)
   },
   {
     type: 'completed',
     title: 'Completadas',
-    text: 'Tienes 10 Tareas completadas lo que corresponde a 100%',
-    count: 10,
-    percent: 100
+    text: `Tienes ${countByType.completed || 0} Tareas completadas lo que corresponde a ${pct(countByType.completed || 0)}%`,
+    count: countByType.completed || 0,
+    percent: pct(countByType.completed || 0)
   },
   {
     type: 'cancelled',
     title: 'Canceladas',
-    text: 'Tienes 10 Tareas canceladas lo que corresponde a 20%',
-    count: 10,
-    percent: 20
+    text: `Tienes ${countByType.cancelled || 0} Tareas canceladas lo que corresponde a ${pct(countByType.cancelled || 0)}%`,
+    count: countByType.cancelled || 0,
+    percent: pct(countByType.cancelled || 0)
   }
 ]
+
+export { getTaskStatus }

@@ -3,7 +3,7 @@ import { Modal } from '../components/Modal.js'
 import { mountModal } from '../utils/mountModal.js'
 
 export const renderModalDelete = () => {
-  const modalId = 'staticBackdrop'
+  const modalId = 'modalDeleteTask'
 
   const htmlAlert = Alert({
     type: 'danger',

@@ -146,6 +146,16 @@
   color: var(--color-danger);
 }
 
+.status-badge-secondary {
+  background-color: color-mix(in srgb, var(--color-info) 15%, transparent);
+  color: var(--color-info);
+}
+
+.status-badge-info {
+  background-color: color-mix(in srgb, var(--color-warning) 15%, transparent);
+  color: var(--color-warning);
+}
+
 @media (max-width: 700px) {
   .task {
     gap: 1rem !important;

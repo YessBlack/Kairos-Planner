@@ -3,7 +3,7 @@ import { Modal } from '../components/Modal.js'
 import { mountModal } from '../utils/mountModal.js'
 
 export const renderModalEdit = () => {
-  const modalId = 'staticBackdrop'
+  const modalId = 'modalEditTask'
 
   const modalHTML = Modal({
     id: modalId,

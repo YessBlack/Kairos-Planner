@@ -1,4 +1,8 @@
-export const SubtaskForm = () => {
+import { SubtaskCard } from './SubtaskCard.js'
+
+export const SubtaskForm = (subtasks = []) => {
+  const subtasksHTML = subtasks.map(SubtaskCard).join('')
+
   return `
     <form id="subtaskForm" class="d-flex gap-2 mb-3">
       <input 
@@ -14,6 +18,6 @@ export const SubtaskForm = () => {
         <span>Agregar subtarea</span>
       </button>
     </form>
-    <ul id="subtaskList" class="d-flex flex-column gap-2 list-unstyled"></ul>
+    <ul id="subtaskList" class="d-flex flex-column gap-2 list-unstyled">${subtasksHTML}</ul>
   `
 }

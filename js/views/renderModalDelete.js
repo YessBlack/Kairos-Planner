@@ -1,5 +1,5 @@
-import { Alert } from '../components/Alert.js'
-import { Modal } from '../components/Modal.js'
+import { Alert } from '../components/ui/Alert.js'
+import { Modal } from '../components/ui/Modal.js'
 import { mountModal } from '../utils/mountModal.js'
 
 export const renderModalDelete = () => {

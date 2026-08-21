@@ -1,4 +1,4 @@
-import { Form } from '../components/Form.js'
+import { Form } from '../components/layout/Form.js'
 import { validFormAddTask } from '../utils/formValid.js'
 import { triggerToast } from '../utils/triggerToast.js'
 

@@ -1,5 +1,5 @@
-import { Form } from '../components/Form.js'
-import { Modal } from '../components/Modal.js'
+import { Form } from '../components/layout/Form.js'
+import { Modal } from '../components/ui/Modal.js'
 import { mountModal } from '../utils/mountModal.js'
 
 export const renderModalEdit = () => {

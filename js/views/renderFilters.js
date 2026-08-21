@@ -1,8 +1,8 @@
-import { filters, getTaskStatus } from '../__mock/filters.js'
+import { getFilters, getTaskStatus } from '../__mock/filters.js'
 import { tasks } from '../__mock/task.js'
-import { Alert } from '../components/Alert.js'
-import { TaskCard } from '../components/CardTask.js'
-import { FilterCard } from '../components/FilterCard.js'
+import { Alert } from '../components/ui/Alert.js'
+import { TaskCard } from '../components/tasks/TaskCard.js'
+import { FilterCard } from '../components/ui/FilterCard.js'
 import { refreshIcons } from '../utils/refreshIcons.js'
 import { fillSubtaskModal } from './renderModalSubtaks.js'
 
@@ -10,11 +10,16 @@ let currentFilter = 'all'
 
 export const renderFilters = () => {
   const container = document.getElementById('filters')
+  const filters = getFilters().map((f) => ({
+    ...f,
+    defaultActive: f.type === currentFilter
+  }))
+
   container.innerHTML = filters.map(FilterCard).join('')
   attachFilterEvents(container)
   attachTaskListEvents()
 
-  renderTasks('all')
+  renderTasks(currentFilter)
 }
 
 const attachFilterEvents = (container) => {
@@ -34,13 +39,20 @@ const attachTaskListEvents = () => {
 
   tasksContainer.addEventListener('click', (event) => {
     const btn = event.target.closest('.btnOpenSubtasks')
-
     if (!btn) return
 
     const taskId = btn.dataset.taskId
     const task = tasks.find((t) => t.id === taskId)
 
     fillSubtaskModal(task)
+  })
+
+  tasksContainer.addEventListener('change', (event) => {
+    const checkbox = event.target.closest('.btnCompleteTask')
+    if (!checkbox) return
+
+    const taskId = checkbox.dataset.taskId
+    toggleTaskCompleted(taskId, checkbox.checked)
   })
 }
 
@@ -68,6 +80,20 @@ const renderTasks = (type) => {
   }
 
   refreshIcons()
+}
+
+const toggleTaskCompleted = (taskId, isCompleted) => {
+  const task = tasks.find((t) => t.id === taskId)
+  if (!task) return
+
+  task.completed = isCompleted
+
+  if (isCompleted) {
+    task.subtasks = task.subtasks.map((sub) => ({ ...sub, done: true }))
+    task.status = 'success'
+  }
+
+  renderFilters()
 }
 
 export const refreshTaskList = () => {

@@ -1,4 +1,4 @@
-import { getDateNow } from './utils/dateUtils.js'
+import { TaskManager } from './services/taskManager.js'
 import { refreshTaskList, renderFilters } from './views/renderFilters.js'
 import { renderForm } from './views/renderForm.js'
 import { renderHeader } from './views/renderHeader.js'
@@ -6,14 +6,12 @@ import { renderModalDelete } from './views/renderModalDelete.js'
 import { renderModalEdit } from './views/renderModalEdit.js'
 import { initSubtaskModal } from './views/renderModalSubtaks.js'
 
-const renderDateNowHeader = () => {
-  const currentDate = document.getElementById('current-date')
-  currentDate.textContent = getDateNow()
-}
+// Prueba tarea 4 - Parte 1
+const taskManager = new TaskManager()
+console.log(taskManager.tasks)
 
 const init = () => {
   renderHeader()
-  renderDateNowHeader()
   renderForm()
   renderFilters()
   initSubtaskModal(refreshTaskList)

@@ -1,6 +1,6 @@
-import { Modal } from '../components/Modal.js'
-import { SubtaskForm } from '../components/SubTask/SubtaskForm.js'
-import { SubtaskCard } from '../components/SubTask/SubtaskCard.js'
+import { Modal } from '../components/ui/Modal.js'
+import { SubtaskForm } from '../components/tasks/SubTask/SubtaskForm.js'
+import { SubtaskCard } from '../components/tasks/SubTask/SubtaskCard.js'
 import { mountModal } from '../utils/mountModal.js'
 import { refreshIcons } from '../utils/refreshIcons.js'
 

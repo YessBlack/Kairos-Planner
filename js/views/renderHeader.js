@@ -1,4 +1,4 @@
-import { Header } from '../components/Header.js'
+import { Header } from '../components/layout/Header.js'
 
 export const renderHeader = () => {
   const container = document.getElementById('header')

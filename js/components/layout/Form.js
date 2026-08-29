@@ -10,7 +10,7 @@ export const Form = (task = null) => {
           Nombre
           <span style="color: red; line-height: 1;">*</span>
         </label>
-        <input type="text" id="name" name="name" placeholder="¿Qué necesitas hacer?" class="p-2 border rounded-2">
+        <input type="text" id="name" name="title" placeholder="¿Qué necesitas hacer?" class="p-2 border rounded-2">
       </div>
 
       <div class="group d-flex flex-column">
@@ -28,8 +28,8 @@ export const Form = (task = null) => {
           <span style="color: red; line-height: 1;">*</span>
         </label>
         <select name="status" id="status" class="p-2 border rounded-2">
-          <option value="noStarted" selected>No Empezado</option>
-          <option value="inProgress">En Progreso</option>
+          <option value="not-started" selected>No Empezado</option>
+          <option value="in-progress">En Progreso</option>
           <option value="completed">Completado</option>
           <option value="cancelled">Cancelado</option>
         </select>
@@ -40,10 +40,10 @@ export const Form = (task = null) => {
 
       <div class="group d-flex flex-column">
         <label for="deadline" class="fw-semibold d-flex align-items-center gap-2">
-          Fecha de vencimiento 
+          Fecha de vencimiento
           <span style="color: red; line-height: 1;">*</span>
         </label>
-        <input type="date" class="p-2 border rounded-2" id="deadline" name="deadline" placeholder="mm/dd/yyyy">
+        <input type="date" class="p-2 border rounded-2" id="deadline" name="deadline" placeholder="mm/dd/yyyy" min="">
       </div>
 
       <button type="submit" class="btn btnAdd" id="${task ? 'btnEditTask' : 'btnAddTask'}">

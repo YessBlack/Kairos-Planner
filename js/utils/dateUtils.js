@@ -4,3 +4,9 @@ export const getDateNow = () => {
   const formattedDate = date.toLocaleDateString('en-US', options)
   return formattedDate
 }
+
+export const formatDeadline = (deadline) => {
+  if (!deadline) return 'Sin fecha'
+  const date = new Date(deadline)
+  return date.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
+}

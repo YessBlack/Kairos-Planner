@@ -1,10 +1,12 @@
-import { getFilters, getTaskStatus } from '../__mock/filters.js'
-import { tasks } from '../__mock/task.js'
+import { getFilters } from '../utils/filters.js'
 import { Alert } from '../components/ui/Alert.js'
 import { TaskCard } from '../components/tasks/TaskCard.js'
 import { FilterCard } from '../components/ui/FilterCard.js'
 import { refreshIcons } from '../utils/refreshIcons.js'
 import { fillSubtaskModal } from './renderModalSubtaks.js'
+import { taskManager } from '../services/instances.js'
+import { getTaskStatus } from '../utils/taskUtils.js'
+import { TASK_STATUS } from '../constants/taskConstants.js'
 
 let currentFilter = 'all'
 
@@ -42,6 +44,7 @@ const attachTaskListEvents = () => {
     if (!btn) return
 
     const taskId = btn.dataset.taskId
+    const tasks = taskManager.getTasks()
     const task = tasks.find((t) => t.id === taskId)
 
     fillSubtaskModal(task)
@@ -62,6 +65,7 @@ const handleFilterClick = (type) => {
 }
 
 const renderTasks = (type) => {
+  const tasks = taskManager.getTasks()
   const filtered = type === 'all'
     ? tasks
     : tasks.filter((task) => getTaskStatus(task) === type)
@@ -83,6 +87,7 @@ const renderTasks = (type) => {
 }
 
 const toggleTaskCompleted = (taskId, isCompleted) => {
+  const tasks = taskManager.getTasks()
   const task = tasks.find((t) => t.id === taskId)
   if (!task) return
 
@@ -90,7 +95,9 @@ const toggleTaskCompleted = (taskId, isCompleted) => {
 
   if (isCompleted) {
     task.subtasks = task.subtasks.map((sub) => ({ ...sub, done: true }))
-    task.status = 'success'
+    task.status = TASK_STATUS.COMPLETED
+  } else {
+    task.status = TASK_STATUS.NOT_STARTED
   }
 
   renderFilters()
@@ -98,4 +105,5 @@ const toggleTaskCompleted = (taskId, isCompleted) => {
 
 export const refreshTaskList = () => {
   renderTasks(currentFilter)
+  refreshIcons()
 }

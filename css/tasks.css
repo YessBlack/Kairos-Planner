@@ -25,36 +25,78 @@
 .taskTitle {
   font-size: 18px;
   font-weight: 600;
-}
-
-.btn-group .dropdown-toggle::after {
-  display: none;
+  color: var(--text-primary);
 }
 
 .task-list {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .task {
   padding: 1.5rem;
   border-radius: 1rem;
-  border: 1px solid var(--color-task);
-  border-right: 4px solid var(--color-task);
-  border-bottom: 4px solid var(--color-task);
-  transition: all 0.5s ease;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid #e8e8e8;
+  border-left: 4px solid var(--color-task);
+  transition: all 0.25s ease;
+  box-shadow: rgba(99, 99, 99, 0.15) 0px 2px 8px 0px;
 }
 
 .task:hover {
-  transform: scale(1.01);
+  transform: scale(1.005);
+  background-color: var(--card-bg-hover);
+}
+
+.task.status-primary {
+  border-left-color: var(--color-primary);
+}
+
+.task.status-success {
+  border-left-color: var(--color-success);
+}
+
+.task.status-warning {
+  border-left-color: var(--color-warning);
+}
+
+.task.status-info {
+  border-left-color: var(--color-info);
+}
+
+.task.status-danger {
+  border-left-color: var(--color-danger);
+}
+
+.task.status-task {
+  border-left-color: var(--color-task);
+}
+
+/* Nuevos status para TaskManager */
+.task.status-not-started {
+  border-left-color: var(--color-info);
+}
+
+.task.status-in-progress {
+  border-left-color: var(--color-warning);
+}
+
+.task.status-completed {
+  border-left-color: var(--color-success);
+}
+
+.task.status-cancelled {
+  border-left-color: var(--color-danger);
 }
 
 .taskBody h3 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   overflow-wrap: anywhere;
+  color: var(--color-text);
 }
 
 .taskBody {
@@ -64,32 +106,82 @@
 .taskBody p {
   font-size: 14px;
   color: var(--color-text-sm);
+  margin-bottom: 0;
+}
+
+.taskDivider {
+  border: none;
+  border-top: 1px solid #e8e8e8;
+  margin: 0.9rem 0;
+  opacity: 1;
 }
 
 .countSubTasks {
   font-size: 14px;
+  color: var(--color-text-sm);
+  flex-wrap: wrap;
+}
+
+.countSubTasks .text-muted {
+  color: var(--text-secondary) !important;
+}
+
+.btnCompleteTask.form-check-input {
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid var(--color-text-sm);
+  cursor: pointer;
+}
+
+.btnCompleteTask.form-check-input:checked {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
 }
 
 .btnDropdown {
-  border: 1px solid var(--color-task) !important;
-  border-right: 4px solid var(--color-task) !important;
-  border-bottom: 4px solid var(--color-task) !important;
+  border: none !important;
+  background: transparent;
+  color: var(--color-text);
 }
 
 .btnDropdown:hover {
-  backdrop-filter: blur(4px) brightness(1.2);
-  transform: scale(1.01);
-  background-color: color-mix(in srgb, var(--color-text-sm) 10%, white);
+  transform: none;
+  background-color: color-mix(in srgb, var(--text-secondary) 12%, transparent);
+  border-radius: 0.5rem;
 }
 
 .text-warning {
   color: var(--color-warning) !important;
 }
 
-.progress {
-  height: 8px;
-  margin-top: 0.5rem;
-  background-color: color-mix(in srgb, var(--color-task) 50%, white);
+.taskProgress {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.taskProgress .progress {
+  height: 6px;
+  width: 120px;
+  flex-shrink: 0;
+  background-color: #e8e8e8;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.taskProgress .progress-bar {
+  border-radius: 999px;
+}
+
+.taskProgress span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-sm);
+  min-width: 2.2rem;
+  text-align: right;
 }
 
 .progress-bar.bg-primary {
@@ -116,9 +208,21 @@
   background-color: var(--color-task) !important;
 }
 
-.taskBody h3 .task-check {
-  color: var(--color-success);
-  margin-left: 0.4rem;
+/* Nuevos status para TaskManager */
+.progress-bar.bg-not-started {
+  background-color: var(--color-info) !important;
+}
+
+.progress-bar.bg-in-progress {
+  background-color: var(--color-warning) !important;
+}
+
+.progress-bar.bg-completed {
+  background-color: var(--color-success) !important;
+}
+
+.progress-bar.bg-cancelled {
+  background-color: var(--color-danger) !important;
 }
 
 .task.is-canceled {
@@ -129,11 +233,13 @@
   text-decoration: line-through;
 }
 
+/* --- BADGE DE ESTADO --- */
 .status-badge {
   font-size: 12px;
-  font-weight: 700;
-  padding: 0.15rem 0.6rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
   border-radius: 999px;
+  white-space: nowrap;
 }
 
 .status-badge-success {
@@ -147,13 +253,17 @@
 }
 
 .status-badge-secondary {
-  background-color: color-mix(in srgb, var(--color-info) 15%, transparent);
+  background-color: color-mix(in srgb, var(--color-info) 20%, transparent);
   color: var(--color-info);
 }
 
 .status-badge-info {
   background-color: color-mix(in srgb, var(--color-warning) 15%, transparent);
   color: var(--color-warning);
+}
+
+.btn-group .dropdown-toggle::after {
+  display: none;
 }
 
 @media (max-width: 700px) {
@@ -168,7 +278,7 @@
     justify-content: flex-end;
   }
 
-  .countSubTasks>.d-flex {
+  .countSubTasks {
     flex-wrap: wrap;
   }
 }

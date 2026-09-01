@@ -1,6 +1,9 @@
 import { Alert } from '../components/ui/Alert.js'
 import { Modal } from '../components/ui/Modal.js'
+import { taskManager } from '../services/instances.js'
 import { mountModal } from '../utils/mountModal.js'
+import { triggerToast } from '../utils/triggerToast.js'
+import { renderFilters } from './renderFilters.js'
 
 export const renderModalDelete = () => {
   const modalId = 'modalDeleteTask'
@@ -37,7 +40,25 @@ export const renderModalDelete = () => {
     return
   }
 
-  btnDelete.addEventListener('click', event => {
-    // TODO: Agregar funcionalidad de eliminar
+  modalEl.addEventListener('show.bs.modal', (event) => {
+    const triggerEl = event.relatedTarget
+    const taskId = triggerEl?.dataset.taskId
+
+    if (!taskId) {
+      console.warn('El elemento que abrió el modal no trae data-task-id')
+    }
+
+    btnDelete.dataset.taskId = taskId
+  })
+
+  btnDelete.addEventListener('click', (event) => {
+    const taskId = event.currentTarget.dataset.taskId
+    taskManager.deleteTask(taskId)
+    triggerToast('Tarea eliminada correctamente', 'success')
+    renderFilters()
+
+    // eslint-disable-next-line no-undef
+    const modalInstance = bootstrap.Modal.getInstance(modalEl)
+    modalInstance?.hide()
   })
 }

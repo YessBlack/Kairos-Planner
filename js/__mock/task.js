@@ -1,83 +1,53 @@
-export const tasks = [
+export const seedTasks = [
   {
-    id: 'task-1',
-    title: 'Revisar reporte mensual de ventas',
-    category: 'Digital Product Design',
-    status: 'warning',
-    dateLabel: 'Due: Oct 24',
-    statusText: '• Vencimiento mañana',
-    statusTextColor: 'warning',
+    id: crypto.randomUUID(),
+    deadline: '2026-09-05',
+    description: 'Diseñar la estructura de la base de datos para el módulo de reservas, incluyendo relaciones entre usuarios, clases y horarios.',
+    status: 'not-started',
+    title: 'Modelar base de datos de reservas',
     completed: false,
     canceled: false,
     subtasks: [
-      { id: 'sub-1-1', text: 'Exportar datos de ventas', done: true },
-      { id: 'sub-1-2', text: 'Comparar con mes anterior', done: true },
-      { id: 'sub-1-3', text: 'Preparar gráficos', done: false },
-      { id: 'sub-1-4', text: 'Enviar a dirección', done: false },
-      { id: 'sub-1-5', text: 'Revisar comentarios finales', done: false }
+      { id: crypto.randomUUID(), text: 'Definir entidades principales', done: false },
+      { id: crypto.randomUUID(), text: 'Definir relaciones y llaves foráneas', done: false },
+      { id: crypto.randomUUID(), text: 'Crear diagrama entidad-relación', done: false }
     ]
   },
   {
-    id: 'task-2',
-    title: 'Preparar slides para la reunión',
-    category: 'Digital Product Design',
-    status: 'info',
-    dateLabel: 'Due: Oct 26',
-    statusText: null,
-    statusTextColor: null,
+    id: crypto.randomUUID(),
+    deadline: '2026-09-02',
+    description: 'Escribir las pruebas unitarias para el servicio de tareas, cubriendo agregar, editar y eliminar.',
+    status: 'in-progress',
+    title: 'Pruebas unitarias del TaskManager',
     completed: false,
     canceled: false,
     subtasks: [
-      { id: 'sub-2-1', text: 'Definir estructura', done: true },
-      { id: 'sub-2-2', text: 'Diseñar portada', done: true },
-      { id: 'sub-2-3', text: 'Agregar datos clave', done: true },
-      { id: 'sub-2-4', text: 'Revisión con equipo', done: false }
+      { id: crypto.randomUUID(), text: 'Probar addTask', done: true },
+      { id: crypto.randomUUID(), text: 'Probar updateTask', done: false },
+      { id: crypto.randomUUID(), text: 'Probar deleteTask', done: false }
     ]
   },
   {
-    id: 'task-3',
-    title: 'Comprar suministros de oficina',
-    category: 'Digital Product Design',
-    status: 'danger',
-    dateLabel: 'Due: Oct 20',
-    statusText: '• Atrasado',
-    statusTextColor: 'danger',
-    completed: false,
-    canceled: false,
-    subtasks: [
-      { id: 'sub-3-1', text: 'Hacer lista de faltantes', done: true },
-      { id: 'sub-3-2', text: 'Cotizar proveedores', done: false }
-    ]
-  },
-  {
-    id: 'task-4',
-    title: 'Rediseño de Landing Page',
-    category: 'Web Development',
-    status: 'success',
-    dateLabel: 'Completed: Oct 22',
-    statusText: 'COMPLETED',
-    statusTextColor: null,
+    id: crypto.randomUUID(),
+    deadline: '2026-08-30',
+    description: 'Revisar y responder los comentarios pendientes del último Pull Request antes de hacer merge a main.',
+    status: 'completed',
+    title: 'Revisar comentarios del Pull Request',
     completed: true,
     canceled: false,
-    subtasks: [
-      { id: 'sub-4-1', text: 'Wireframes', done: true },
-      { id: 'sub-4-2', text: 'Diseño visual', done: true },
-      { id: 'sub-4-3', text: 'Implementación', done: true }
-    ]
+    subtasks: []
   },
   {
-    id: 'task-5',
-    title: 'Investigación de Mercado',
-    category: 'Marketing',
-    status: 'danger',
-    dateLabel: 'Canceled: Oct 21',
-    statusText: 'CANCELED',
-    statusTextColor: null,
+    id: crypto.randomUUID(),
+    deadline: '2026-09-04',
+    description: 'Preparar el ambiente de despliegue en el servidor de pruebas, incluyendo variables de entorno y configuración de base de datos.',
+    status: 'cancelled',
+    title: 'Configurar ambiente de staging',
     completed: false,
     canceled: true,
     subtasks: [
-      { id: 'sub-5-1', text: 'Definir competidores', done: true },
-      { id: 'sub-5-2', text: 'Encuestas a usuarios', done: false }
+      { id: crypto.randomUUID(), text: 'Configurar variables de entorno', done: false },
+      { id: crypto.randomUUID(), text: 'Conectar base de datos de pruebas', done: false }
     ]
   }
 ]

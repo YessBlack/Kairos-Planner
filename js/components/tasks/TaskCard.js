@@ -75,7 +75,7 @@ export const TaskCard = (task) => {
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDeleteTask">
+              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDeleteTask" data-task-id="${task.id}">
                 Eliminar Tarea
               </a>
             </li>

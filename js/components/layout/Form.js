@@ -10,7 +10,7 @@ export const Form = (task = null) => {
           Nombre
           <span style="color: red; line-height: 1;">*</span>
         </label>
-        <input type="text" id="name" name="title" placeholder="¿Qué necesitas hacer?" class="p-2 border rounded-2">
+        <input type="text" id="name" name="title" placeholder="¿Qué necesitas hacer?" class="p-2 border rounded-2" value="${task?.title ?? ''}">
       </div>
 
       <div class="group d-flex flex-column">
@@ -19,7 +19,7 @@ export const Form = (task = null) => {
           <span style="color: red; line-height: 1;">*</span>
         </label>
         <textarea class="p-2 border rounded-2" name="description" id="description"
-          placeholder="Añade detalles adicionales..."></textarea>
+          placeholder="Añade detalles adicionales...">${task?.description ?? ''}</textarea>
       </div>
 
       <div class="group d-flex flex-column">
@@ -28,10 +28,10 @@ export const Form = (task = null) => {
           <span style="color: red; line-height: 1;">*</span>
         </label>
         <select name="status" id="status" class="p-2 border rounded-2">
-          <option value="not-started" selected>No Empezado</option>
-          <option value="in-progress">En Progreso</option>
-          <option value="completed">Completado</option>
-          <option value="cancelled">Cancelado</option>
+          <option value="not-started" ${!task || task.status === 'not-started' ? 'selected' : ''}>No Empezado</option>
+          <option value="in-progress" ${task?.status === 'in-progress' ? 'selected' : ''}>En Progreso</option>
+          <option value="completed" ${task?.status === 'completed' ? 'selected' : ''}>Completado</option>
+          <option value="cancelled" ${task?.status === 'cancelled' ? 'selected' : ''}>Cancelado</option>
         </select>
         ${task
       ? ''
@@ -43,7 +43,7 @@ export const Form = (task = null) => {
           Fecha de vencimiento
           <span style="color: red; line-height: 1;">*</span>
         </label>
-        <input type="date" class="p-2 border rounded-2" id="deadline" name="deadline" placeholder="mm/dd/yyyy" min="">
+        <input type="date" class="p-2 border rounded-2" id="deadline" name="deadline" placeholder="mm/dd/yyyy" min="" value="${task?.deadline ?? ''}">
       </div>
 
       <button type="submit" class="btn btnAdd" id="${task ? 'btnEditTask' : 'btnAddTask'}">

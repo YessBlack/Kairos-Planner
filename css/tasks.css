@@ -287,7 +287,7 @@
 
 .btnDropdown.show,
 .btnDropdown[aria-expanded="true"] {
-  background-color: var#eef1ff;
+  background-color: #eef1ff;
   border-color: #c7d2fe;
   color: #4f46e5;
 }

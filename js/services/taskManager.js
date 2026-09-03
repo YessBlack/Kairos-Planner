@@ -71,6 +71,11 @@ export class TaskManager {
       ...updatedData
     }
 
+    if (updatedData.status) {
+      updatedTask.completed = updatedData.status === TASK_STATUS.COMPLETED
+      updatedTask.canceled = updatedData.status === TASK_STATUS.CANCELLED
+    }
+
     const taskIndex = this.tasks.findIndex((task) => task.id === taskId)
     this.tasks[taskIndex] = updatedTask
     this._saveTasks()

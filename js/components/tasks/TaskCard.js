@@ -65,17 +65,20 @@ export const TaskCard = (task) => {
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalEditTask">
+              <a class="dropdown-item d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#modalEditTask" data-task-id="${task.id}">
+                <i data-lucide="pencil" width="14" height="14"></i>
                 Editar Tarea
               </a>
             </li>
             <li>
-              <a class="dropdown-item btnOpenSubtasks" href="#" data-task-id="${task.id}" data-bs-toggle="modal" data-bs-target="#modalAddSubtask">
+              <a class="dropdown-item btnOpenSubtasks d-flex align-items-center gap-2" href="#" data-task-id="${task.id}" data-bs-toggle="modal" data-bs-target="#modalAddSubtask">
+                <i data-lucide="list-checks" width="14" height="14"></i>
                 SubTareas
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDeleteTask" data-task-id="${task.id}">
+              <a class="dropdown-item text-danger d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#modalDeleteTask" data-task-id="${task.id}">
+                <i data-lucide="trash-2" width="14" height="14"></i>
                 Eliminar Tarea
               </a>
             </li>

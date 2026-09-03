@@ -34,6 +34,10 @@ export class TaskManager {
     return [...this.tasks]
   }
 
+  getTaskById(taskId) {
+    return this.tasks.find((task) => task.id === taskId)
+  }
+
   addTask(task) {
     const isCancelled = task.status === TASK_STATUS.CANCELLED
     const isCompleted = task.status === TASK_STATUS.COMPLETED
@@ -52,6 +56,30 @@ export class TaskManager {
     this.tasks.push(taskData)
     this._saveTasks()
     return taskData
+  }
+
+  updateTask(taskId, updatedData) {
+    const taskSearch = this.tasks.find((task) => task.id === taskId)
+
+    if (!taskSearch) {
+      console.warn(`No se encontró la tarea con id: ${taskId}`)
+      return null
+    }
+
+    const updatedTask = {
+      ...taskSearch,
+      ...updatedData
+    }
+
+    if (updatedData.status) {
+      updatedTask.completed = updatedData.status === TASK_STATUS.COMPLETED
+      updatedTask.canceled = updatedData.status === TASK_STATUS.CANCELLED
+    }
+
+    const taskIndex = this.tasks.findIndex((task) => task.id === taskId)
+    this.tasks[taskIndex] = updatedTask
+    this._saveTasks()
+    return updatedTask
   }
 
   deleteTask(taskId) {

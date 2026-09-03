@@ -266,6 +266,64 @@
   display: none;
 }
 
+.btnDropdown {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-sm);
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btnDropdown:hover,
+.btnDropdown:focus {
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  color: var(--color-text);
+}
+
+.btnDropdown.show,
+.btnDropdown[aria-expanded="true"] {
+  background-color: #eef1ff;
+  border-color: #c7d2fe;
+  color: #4f46e5;
+}
+
+.btnDropdown::after {
+  display: none;
+}
+
+.taskFooter .dropdown-menu {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  padding: 6px;
+  min-width: 170px;
+}
+
+.taskFooter .dropdown-item {
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  color: #374151;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.taskFooter .dropdown-item:hover,
+.taskFooter .dropdown-item:focus {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.taskFooter .dropdown-item.text-danger:hover,
+.taskFooter .dropdown-item.text-danger:focus {
+  background-color: #fee2e2;
+  color: var(--color-danger);
+}
+
 @media (max-width: 700px) {
   .task {
     gap: 1rem !important;

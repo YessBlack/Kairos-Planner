@@ -176,6 +176,11 @@
   color: #d95d45;
 }
 
+.agenda-card .agenda-status-item--milestone strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .agenda-card .agenda-dot {
   display: inline-block;
   width: 8px;
@@ -195,6 +200,15 @@
 
 .agenda-card .agenda-dot--purple {
   background-color: var(--color-danger);
+}
+
+@media (max-width: 600px) {
+  .agenda-card .agenda-status-item--milestone {
+    flex: 1 1 100%;
+    white-space: normal;
+    align-items: flex-start;
+    line-height: 1.35;
+  }
 }
 
 .view-switch {

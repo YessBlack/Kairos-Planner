@@ -24,8 +24,8 @@ export const TaskCard = (task) => {
         >`}
 
         <div class="taskBody w-100">
-          <div class="d-flex align-items-center justify-content-between gap-3 mb-2">
-            <div class="d-flex align-items-center gap-2">
+          <div class="task-title-row d-flex align-items-center justify-content-between gap-3 mb-2">
+            <div class="task-title-group d-flex align-items-center gap-2">
               <h3 class="m-0">${task.title}</h3>
             </div>
             ${statusBadge}

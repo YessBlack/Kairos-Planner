@@ -31,6 +31,17 @@ body {
   height: 100vh;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .content {
   display: grid;
   grid-template-columns: minmax(300px, 350px) 1fr;

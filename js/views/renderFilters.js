@@ -1,38 +1,63 @@
-import { getFilters } from '../utils/filters.js'
 import { Alert } from '../components/ui/Alert.js'
 import { TaskCard } from '../components/tasks/TaskCard.js'
+import { TaskHeader } from '../components/layout/TaskHeader.js'
 import { FilterCard } from '../components/ui/FilterCard.js'
 import { refreshIcons } from '../utils/refreshIcons.js'
 import { fillSubtaskModal } from './renderModalSubtaks.js'
 import { taskManager } from '../services/instances.js'
+import { getFilters } from '../utils/filters.js'
 import { getTaskStatus } from '../utils/taskUtils.js'
 import { TASK_STATUS } from '../constants/taskConstants.js'
+import { refreshCalendar } from './renderCalendar.js'
 
+let searchTerm = ''
+let sortDirection = 'date-asc'
 let currentFilter = 'all'
 
 export const renderFilters = () => {
-  const container = document.getElementById('filters')
-  const filters = getFilters().map((f) => ({
-    ...f,
-    defaultActive: f.type === currentFilter
+  const filtersContainer = document.getElementById('filters')
+  const filters = getFilters().map((filter) => ({
+    ...filter,
+    defaultActive: filter.type === currentFilter
   }))
 
-  container.innerHTML = filters.map(FilterCard).join('')
-  attachFilterEvents(container)
-  attachTaskListEvents()
+  filtersContainer.innerHTML = filters.map(FilterCard).join('')
+  attachFilterEvents(filtersContainer)
 
-  renderTasks(currentFilter)
+  const header = document.getElementById('taskHeader')
+  header.innerHTML = TaskHeader()
+
+  attachTaskHeaderEvents(header)
+  attachTaskListEvents()
+  renderTasks()
 }
 
 const attachFilterEvents = (container) => {
   container.querySelectorAll('.filter').forEach((filterEl) => {
     filterEl.addEventListener('click', () => {
-      container.querySelectorAll('.filter').forEach((el) => el.classList.remove('active'))
+      container.querySelectorAll('.filter').forEach((element) => element.classList.remove('active'))
       filterEl.classList.add('active')
-
-      const type = filterEl.dataset.filterType
-      handleFilterClick(type)
+      currentFilter = filterEl.dataset.filterType
+      renderTasks()
     })
+  })
+}
+
+const attachTaskHeaderEvents = (header) => {
+  const searchInput = header.querySelector('#taskSearchInput')
+  const sortSelect = header.querySelector('#taskSortSelect')
+
+  searchInput.value = searchTerm
+  sortSelect.value = sortDirection
+
+  searchInput.addEventListener('input', (event) => {
+    searchTerm = event.target.value.trim().toLowerCase()
+    renderTasks()
+  })
+
+  sortSelect.addEventListener('change', (event) => {
+    sortDirection = event.target.value
+    renderTasks()
   })
 }
 
@@ -59,24 +84,30 @@ const attachTaskListEvents = () => {
   })
 }
 
-const handleFilterClick = (type) => {
-  currentFilter = type
-  renderTasks(currentFilter)
-}
-
-const renderTasks = (type) => {
+const renderTasks = () => {
   const tasks = taskManager.getTasks()
-  const filtered = type === 'all'
-    ? tasks
-    : tasks.filter((task) => getTaskStatus(task) === type)
+
+  const filtered = tasks
+    .filter((task) => currentFilter === 'all' || getTaskStatus(task) === currentFilter)
+    .filter((task) => {
+      const searchableText = `${task.title} ${task.description}`.toLowerCase()
+      return searchableText.includes(searchTerm)
+    })
+    .sort((first, second) => {
+      const firstDate = first.deadline || ''
+      const secondDate = second.deadline || ''
+      return sortDirection === 'date-asc'
+        ? firstDate.localeCompare(secondDate)
+        : secondDate.localeCompare(firstDate)
+    })
 
   const tasksContainer = document.getElementById('taskList')
 
   if (filtered.length === 0) {
     tasksContainer.innerHTML = Alert({
       type: 'info',
-      title: 'No hay tareas con este estado',
-      text: 'Cuando agregues o actualices tareas que coincidan con este filtro, aparecerán aquí.',
+      title: 'No hay tareas que coincidan',
+      text: 'Prueba con otro término de búsqueda para encontrar una tarea.',
       icon: 'inbox'
     })
   } else {
@@ -84,6 +115,7 @@ const renderTasks = (type) => {
   }
 
   refreshIcons()
+  refreshCalendar()
 }
 
 const toggleTaskCompleted = (taskId, isCompleted) => {
@@ -104,6 +136,6 @@ const toggleTaskCompleted = (taskId, isCompleted) => {
 }
 
 export const refreshTaskList = () => {
-  renderTasks(currentFilter)
+  renderTasks()
   refreshIcons()
 }

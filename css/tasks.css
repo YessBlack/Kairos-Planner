@@ -21,7 +21,7 @@
   border-radius: 16px;
   padding: 1rem;
   margin-top: 1rem;
-  background-color: color-mix(in srgb, var(--color-primary) 7%, white);
+  background-color: #f7f9fc;
 }
 
 .taskHeader-inner {
@@ -30,6 +30,7 @@
   justify-content: space-between;
   gap: 1.5rem;
   width: 100%;
+  min-width: 0;
 }
 
 .taskHeader-title {
@@ -55,7 +56,9 @@
   display: flex;
   align-items: center;
   gap: .65rem;
-  flex-shrink: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+  justify-content: flex-end;
 }
 
 .taskSearch,
@@ -71,7 +74,7 @@
 }
 
 .taskSearch {
-  width: 255px;
+  width: min(255px, 100%);
   padding: 0 .75rem;
 }
 
@@ -113,6 +116,38 @@
 
 .taskSort option {
   font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .taskHeader-inner {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .taskHeader-controls {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .taskSearch {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .taskHeader-content {
+    padding: 1rem;
+  }
+
+  .taskHeader-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .taskSearch,
+  .taskSort {
+    width: 100%;
+  }
 }
 
 .task-list {
@@ -187,6 +222,18 @@
   font-weight: 600;
   overflow-wrap: anywhere;
   color: var(--color-text);
+}
+
+.task-title-row {
+  min-width: 0;
+}
+
+.task-title-group {
+  min-width: 0;
+}
+
+.task-title-group h3 {
+  overflow-wrap: anywhere;
 }
 
 .taskBody {
@@ -449,9 +496,19 @@
 }
 
 @media (max-width: 700px) {
+  .tasks {
+    height: auto;
+    overflow: visible;
+  }
+
+  .task-list {
+    overflow: visible;
+  }
+
   .task {
     gap: 1rem !important;
     flex-direction: column;
+    padding: 1rem;
   }
 
   .taskFooter {
@@ -462,5 +519,17 @@
 
   .countSubTasks {
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 900px) {
+  .task-title-row {
+    align-items: flex-start !important;
+    flex-direction: column;
+    gap: .5rem !important;
+  }
+
+  .task-title-group {
+    width: 100%;
   }
 }

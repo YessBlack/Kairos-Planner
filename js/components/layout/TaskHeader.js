@@ -24,5 +24,5 @@ export const TaskHeader = () => `
         </label>
       </div>
     </div>
-    </div>
+  </div>
 `

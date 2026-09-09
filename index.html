@@ -13,12 +13,14 @@
     rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/filters.css">
   <link rel="stylesheet" href="css/form.css">
   <link rel="stylesheet" href="css/tasks.css">
   <link rel="stylesheet" href="css/alert.css">
+  <link rel="stylesheet" href="css/calendar.css">
 </head>
 
 <body>
@@ -27,17 +29,13 @@
   <div class="container gap-3 mt-4">
     <div class="filters gap-3" id="filters"></div>
 
+    <div id="agenda"></div>
+    <div id="taskHeader"></div>
+
     <div class="content mt-4 gap-3">
       <div id="form"></div>
-
       <div class="tasks d-flex flex-column">
-        <div class="taskHeader">
-          <h2 class="taskTitle">Lista de Tareas</h2>
-          <i data-lucide="list-check"></i>
-        </div>
-
         <div class="task-list d-flex flex-column gap-3" id="taskList"></div>
-
       </div>
     </div>
   </div>
@@ -47,6 +45,7 @@
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
   <script src="js/app.js" type="module"></script>
 </body>
 

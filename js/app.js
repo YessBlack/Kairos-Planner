@@ -4,10 +4,12 @@ import { renderHeader } from './views/renderHeader.js'
 import { renderModalDelete } from './views/renderModalDelete.js'
 import { renderModalEdit } from './views/renderModalEdit.js'
 import { initSubtaskModal } from './views/renderModalSubtaks.js'
+import { renderCalendar } from './views/renderCalendar.js'
 
 const init = () => {
   renderHeader()
   renderForm()
+  renderCalendar()
   renderFilters()
   initSubtaskModal(refreshTaskList)
   renderModalEdit()

@@ -22,14 +22,12 @@ export const renderModalEdit = () => {
     const taskId = triggerEl?.dataset.taskId
 
     if (!taskId) {
-      console.warn('El elemento que abrió el modal no trae data-task-id')
       return
     }
 
     const task = taskManager.getTaskById(taskId)
 
     if (!task) {
-      console.warn('No se encontró la tarea a editar')
       return
     }
 
@@ -37,16 +35,21 @@ export const renderModalEdit = () => {
 
     const formEl = modalBody.querySelector('#taskForm')
 
-    formEl.onsubmit = (submitEvent) => {
+    formEl.onsubmit = async (submitEvent) => {
       submitEvent.preventDefault()
       const formData = new FormData(formEl)
       const updatedData = Object.fromEntries(formData.entries())
-      taskManager.updateTask(taskId, updatedData)
-      triggerToast('Tarea actualizada correctamente', 'success')
-      renderFilters()
-      // eslint-disable-next-line no-undef
-      const modalInstance = bootstrap.Modal.getInstance(modalEl)
-      modalInstance?.hide()
+
+      try {
+        await taskManager.updateTask(taskId, updatedData)
+        triggerToast('Tarea actualizada correctamente', 'success')
+        renderFilters()
+        // eslint-disable-next-line no-undef
+        const modalInstance = bootstrap.Modal.getInstance(modalEl)
+        modalInstance?.hide()
+      } catch (error) {
+        triggerToast(`No se pudo actualizar la tarea: ${error.message}`, 'error')
+      }
     }
   })
 }

@@ -1,33 +1,46 @@
 /* eslint-disable space-before-function-paren */
-import { seedTasks } from '../__mock/task.js'
 import { TASK_STATUS } from '../constants/taskConstants.js'
 
-const STORAGE_KEY = 'tasks'
+const API_URL = 'https://kairos-planner-api.onrender.com/api/tasks'
+
+const toTaskRequestPayload = (task) => ({
+  title: task.title,
+  description: task.description || '',
+  deadline: task.deadline || null,
+  status: task.status || TASK_STATUS.NOT_STARTED,
+  subtasks: (task.subtasks || []).map(({ text, done }) => ({ text, done }))
+})
+
+const hasTaskId = (task, taskId) => String(task.id) === String(taskId)
 
 export class TaskManager {
-  constructor(currentId = 1) {
-    this.tasks = this._loadTasks()
-    this.currentId = currentId
+  constructor() {
+    this.tasks = []
   }
 
-  _loadTasks() {
-    try {
-      const saved = window.localStorage.getItem(STORAGE_KEY)
-      if (saved) return JSON.parse(saved)
+  async _request(path = '', options = {}) {
+    const response = await fetch(`${API_URL}${path}`, {
+      headers: { 'Content-Type': 'application/json' },
+      ...options
+    })
 
-      this._saveTasksTo(seedTasks)
-      return seedTasks
-    } catch {
+    if (!response.ok) {
+      const errorBody = await response.text()
+      throw new Error(errorBody || `Error en la petición: ${response.status}`)
+    }
+
+    if (response.status === 204) return null
+    return response.json()
+  }
+
+  async loadTasks() {
+    try {
+      this.tasks = await this._request()
+      return this.tasks
+    } catch (err) {
+      this.tasks = []
       return []
     }
-  }
-
-  _saveTasksTo(data) {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-  }
-
-  _saveTasks() {
-    this._saveTasksTo(this.tasks)
   }
 
   getTasks() {
@@ -35,55 +48,42 @@ export class TaskManager {
   }
 
   getTaskById(taskId) {
-    return this.tasks.find((task) => task.id === taskId)
+    return this.tasks.find((task) => hasTaskId(task, taskId))
   }
 
-  addTask(task) {
-    const isCancelled = task.status === TASK_STATUS.CANCELLED
-    const isCompleted = task.status === TASK_STATUS.COMPLETED
+  async addTask(task) {
+    const taskData = toTaskRequestPayload(task)
 
-    const taskData = {
-      id: crypto.randomUUID(),
-      deadline: task.deadline,
-      description: task.description || '',
-      status: task.status || TASK_STATUS.NOT_STARTED,
-      title: task.title,
-      completed: isCompleted,
-      canceled: isCancelled,
-      subtasks: []
-    }
+    const created = await this._request('', {
+      method: 'POST',
+      body: JSON.stringify(taskData)
+    })
 
-    this.tasks.push(taskData)
-    this._saveTasks()
-    return taskData
+    this.tasks.push(created)
+    return created
   }
 
-  updateTask(taskId, updatedData) {
-    const taskSearch = this.tasks.find((task) => task.id === taskId)
+  async updateTask(taskId, updatedData) {
+    const taskSearch = this.tasks.find((task) => hasTaskId(task, taskId))
 
     if (!taskSearch) {
-      console.warn(`No se encontró la tarea con id: ${taskId}`)
       return null
     }
 
-    const updatedTask = {
-      ...taskSearch,
-      ...updatedData
-    }
+    const payload = toTaskRequestPayload({ ...taskSearch, ...updatedData })
 
-    if (updatedData.status) {
-      updatedTask.completed = updatedData.status === TASK_STATUS.COMPLETED
-      updatedTask.canceled = updatedData.status === TASK_STATUS.CANCELLED
-    }
+    const updatedTask = await this._request(`/${taskId}`, {
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    })
 
-    const taskIndex = this.tasks.findIndex((task) => task.id === taskId)
+    const taskIndex = this.tasks.findIndex((task) => hasTaskId(task, taskId))
     this.tasks[taskIndex] = updatedTask
-    this._saveTasks()
     return updatedTask
   }
 
-  deleteTask(taskId) {
-    this.tasks = this.tasks.filter((task) => task.id !== taskId)
-    this._saveTasks()
+  async deleteTask(taskId) {
+    await this._request(`/${taskId}`, { method: 'DELETE' })
+    this.tasks = this.tasks.filter((task) => !hasTaskId(task, taskId))
   }
 }

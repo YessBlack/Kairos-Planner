@@ -70,7 +70,7 @@ const attachTaskListEvents = () => {
 
     const taskId = btn.dataset.taskId
     const tasks = taskManager.getTasks()
-    const task = tasks.find((t) => t.id === taskId)
+    const task = tasks.find((t) => String(t.id) === String(taskId))
 
     fillSubtaskModal(task)
   })
@@ -120,7 +120,7 @@ const renderTasks = () => {
 
 const toggleTaskCompleted = (taskId, isCompleted) => {
   const tasks = taskManager.getTasks()
-  const task = tasks.find((t) => t.id === taskId)
+  const task = tasks.find((t) => String(t.id) === String(taskId))
   if (!task) return
 
   task.completed = isCompleted

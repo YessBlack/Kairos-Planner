@@ -36,7 +36,6 @@ export const renderModalDelete = () => {
   const btnDelete = modalEl.querySelector('#btnDeleteTask')
 
   if (!btnDelete) {
-    console.warn('No se encontró el botón de eliminar en el modal')
     return
   }
 
@@ -44,21 +43,24 @@ export const renderModalDelete = () => {
     const triggerEl = event.relatedTarget
     const taskId = triggerEl?.dataset.taskId
 
-    if (!taskId) {
-      console.warn('El elemento que abrió el modal no trae data-task-id')
-    }
+    if (!taskId) return
 
     btnDelete.dataset.taskId = taskId
   })
 
-  btnDelete.addEventListener('click', (event) => {
+  btnDelete.addEventListener('click', async (event) => {
     const taskId = event.currentTarget.dataset.taskId
-    taskManager.deleteTask(taskId)
-    triggerToast('Tarea eliminada correctamente', 'success')
-    renderFilters()
 
-    // eslint-disable-next-line no-undef
-    const modalInstance = bootstrap.Modal.getInstance(modalEl)
-    modalInstance?.hide()
+    try {
+      await taskManager.deleteTask(taskId)
+      triggerToast('Tarea eliminada correctamente', 'success')
+      renderFilters()
+
+      // eslint-disable-next-line no-undef
+      const modalInstance = bootstrap.Modal.getInstance(modalEl)
+      modalInstance?.hide()
+    } catch (error) {
+      triggerToast(`No se pudo eliminar la tarea: ${error.message}`, 'error')
+    }
   })
 }

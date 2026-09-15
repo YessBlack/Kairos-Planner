@@ -1,3 +1,5 @@
+import { TASK_STATUS } from '../../constants/taskConstants.js'
+
 export const Form = (task = null) => {
   return `
     <form class="d-flex flex-column gap-3 form ${task ? 'without-border' : ''}" id="taskForm">
@@ -28,10 +30,10 @@ export const Form = (task = null) => {
           <span style="color: red; line-height: 1;">*</span>
         </label>
         <select name="status" id="status" class="p-2 border rounded-2">
-          <option value="not-started" ${!task || task.status === 'not-started' ? 'selected' : ''}>No Empezado</option>
-          <option value="in-progress" ${task?.status === 'in-progress' ? 'selected' : ''}>En Progreso</option>
-          <option value="completed" ${task?.status === 'completed' ? 'selected' : ''}>Completado</option>
-          <option value="cancelled" ${task?.status === 'cancelled' ? 'selected' : ''}>Cancelado</option>
+          <option value="${TASK_STATUS.NOT_STARTED}" ${!task || task.status === TASK_STATUS.NOT_STARTED ? 'selected' : ''}>No Empezado</option>
+          <option value="${TASK_STATUS.IN_PROGRESS}" ${task?.status === TASK_STATUS.IN_PROGRESS ? 'selected' : ''}>En Progreso</option>
+          <option value="${TASK_STATUS.COMPLETED}" ${task?.status === TASK_STATUS.COMPLETED ? 'selected' : ''}>Completado</option>
+          <option value="${TASK_STATUS.CANCELLED}" ${task?.status === TASK_STATUS.CANCELLED ? 'selected' : ''}>Cancelado</option>
         </select>
         ${task
       ? ''

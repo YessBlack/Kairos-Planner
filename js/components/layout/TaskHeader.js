@@ -18,8 +18,8 @@ export const TaskHeader = () => `
           <i data-lucide="arrow-down-up" width="16" height="16"></i>
           <span>Ordenar:</span>
           <select id="taskSortSelect">
-            <option value="date-asc">Fecha</option>
-            <option value="date-desc">Fecha inversa</option>
+            <option value="date-asc">Vencimiento más próximo</option>
+            <option value="date-desc">Vencimiento más lejano</option>
           </select>
         </label>
       </div>

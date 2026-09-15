@@ -43,7 +43,7 @@ export const getUrgencyMarkup = (task) => {
   }
 
   if (diffDays === 0) {
-    return '<span class="text-warning">• Vence hoy</span>'
+    return '<span class="text-danger">• Vence hoy</span>'
   }
 
   if (diffDays === 1) {

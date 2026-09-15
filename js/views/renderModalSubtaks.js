@@ -3,9 +3,13 @@ import { SubtaskForm } from '../components/tasks/SubTask/SubtaskForm.js'
 import { SubtaskCard } from '../components/tasks/SubTask/SubtaskCard.js'
 import { mountModal } from '../utils/mountModal.js'
 import { refreshIcons } from '../utils/refreshIcons.js'
+import { taskManager } from '../services/instances.js'
+import { triggerToast } from '../utils/triggerToast.js'
 
 const modalId = 'modalAddSubtask'
 let modalEl = null
+
+const hasSubtaskId = (subtask, subtaskId) => String(subtask.id) === String(subtaskId)
 
 export const initSubtaskModal = (onClose) => {
   const modalHTML = Modal({
@@ -30,7 +34,7 @@ export const fillSubtaskModal = (task) => {
   const input = body.querySelector('#subtaskInput')
   const list = body.querySelector('#subtaskList')
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault()
     const text = input.value.trim()
     if (!text) return
@@ -43,14 +47,34 @@ export const fillSubtaskModal = (task) => {
 
     input.value = ''
     input.focus()
+
+    try {
+      await taskManager.updateTask(task.id, { subtasks: task.subtasks })
+    } catch (error) {
+      task.subtasks = task.subtasks.filter((subtask) => subtask.id !== newSubtask.id)
+      list.querySelector(`[data-subtask-id="${newSubtask.id}"]`)?.remove()
+      triggerToast(`No se pudo guardar la subtarea: ${error.message}`, 'error')
+    }
   })
 
-  list.addEventListener('click', (event) => {
+  list.addEventListener('click', async (event) => {
     const btnRemove = event.target.closest('.btnRemoveSubtask')
     if (btnRemove) {
       const li = btnRemove.closest('li')
-      task.subtasks = task.subtasks.filter((s) => s.id !== li.dataset.subtaskId)
+      const removedSubtask = task.subtasks.find((subtask) => hasSubtaskId(subtask, li.dataset.subtaskId))
+      if (!removedSubtask) return
+
+      task.subtasks = task.subtasks.filter((subtask) => !hasSubtaskId(subtask, li.dataset.subtaskId))
       li.remove()
+
+      try {
+        await taskManager.updateTask(task.id, { subtasks: task.subtasks })
+      } catch (error) {
+        task.subtasks.push(removedSubtask)
+        list.insertAdjacentHTML('beforeend', SubtaskCard(removedSubtask))
+        refreshIcons()
+        triggerToast(`No se pudo eliminar la subtarea: ${error.message}`, 'error')
+      }
       return
     }
 
@@ -58,7 +82,9 @@ export const fillSubtaskModal = (task) => {
 
     if (btnToggle) {
       const li = btnToggle.closest('li')
-      const subtask = task.subtasks.find((s) => s.id === li.dataset.subtaskId)
+      const subtask = task.subtasks.find((item) => hasSubtaskId(item, li.dataset.subtaskId))
+      if (!subtask) return
+
       subtask.done = !subtask.done
 
       li.classList.toggle('is-done', subtask.done)
@@ -67,6 +93,16 @@ export const fillSubtaskModal = (task) => {
       btnToggle.innerHTML = `<i data-lucide="${icon}" width="16" height="16"></i>`
 
       refreshIcons()
+
+      try {
+        await taskManager.updateTask(task.id, { subtasks: task.subtasks })
+      } catch (error) {
+        subtask.done = !subtask.done
+        li.classList.toggle('is-done', subtask.done)
+        btnToggle.innerHTML = `<i data-lucide="${subtask.done ? 'check-circle-2' : 'circle'}" width="16" height="16"></i>`
+        refreshIcons()
+        triggerToast(`No se pudo actualizar la subtarea: ${error.message}`, 'error')
+      }
     }
   })
 }

@@ -3,7 +3,8 @@ import { getStatusBadge, getTaskProgress, getTaskStatus, getUrgencyMarkup, getDa
 export const TaskCard = (task) => {
   const canceledClass = task.canceled ? 'is-canceled' : ''
   const displayStatus = getTaskStatus(task)
-  const statusClass = `status-${displayStatus}`
+  const statusClass = `status-${displayStatus.toLowerCase().replace('_', '-')}`
+  const progressClass = `bg-${displayStatus.toLowerCase().replace('_', '-')}`
 
   const statusBadge = getStatusBadge(task)
   const urgencyMarkup = getUrgencyMarkup(task)
@@ -49,7 +50,7 @@ export const TaskCard = (task) => {
 
             <div class="d-flex align-items-center gap-2 taskProgress">
               <div class="progress" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar progress-bar-striped bg-${displayStatus}" style="width: ${percent}%"></div>
+                <div class="progress-bar progress-bar-striped ${progressClass}" style="width: ${percent}%"></div>
               </div>
               <span>${percent}%</span>
             </div>

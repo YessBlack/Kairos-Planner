@@ -1,6 +1,6 @@
 export const TASK_STATUS = Object.freeze({
-  NOT_STARTED: 'not-started',
-  IN_PROGRESS: 'in-progress',
-  COMPLETED: 'completed',
-  CANCELLED: 'cancelled'
+  NOT_STARTED: 'NOT_STARTED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
 })

@@ -1,9 +1,11 @@
+import { TASK_STATUS } from '../constants/taskConstants.js'
+
 export const seedTasks = [
   {
     id: crypto.randomUUID(),
     deadline: '2026-09-05',
     description: 'Diseñar la estructura de la base de datos para el módulo de reservas, incluyendo relaciones entre usuarios, clases y horarios.',
-    status: 'not-started',
+    status: TASK_STATUS.NOT_STARTED,
     title: 'Modelar base de datos de reservas',
     completed: false,
     canceled: false,
@@ -17,7 +19,7 @@ export const seedTasks = [
     id: crypto.randomUUID(),
     deadline: '2026-09-02',
     description: 'Escribir las pruebas unitarias para el servicio de tareas, cubriendo agregar, editar y eliminar.',
-    status: 'in-progress',
+    status: TASK_STATUS.IN_PROGRESS,
     title: 'Pruebas unitarias del TaskManager',
     completed: false,
     canceled: false,
@@ -31,7 +33,7 @@ export const seedTasks = [
     id: crypto.randomUUID(),
     deadline: '2026-08-30',
     description: 'Revisar y responder los comentarios pendientes del último Pull Request antes de hacer merge a main.',
-    status: 'completed',
+    status: TASK_STATUS.COMPLETED,
     title: 'Revisar comentarios del Pull Request',
     completed: true,
     canceled: false,
@@ -41,7 +43,7 @@ export const seedTasks = [
     id: crypto.randomUUID(),
     deadline: '2026-09-04',
     description: 'Preparar el ambiente de despliegue en el servidor de pruebas, incluyendo variables de entorno y configuración de base de datos.',
-    status: 'cancelled',
+    status: TASK_STATUS.CANCELLED,
     title: 'Configurar ambiente de staging',
     completed: false,
     canceled: true,

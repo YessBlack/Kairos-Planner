@@ -21,7 +21,7 @@ export const renderForm = () => {
 
   const taskForm = document.querySelector('#taskForm')
 
-  taskForm.addEventListener('submit', event => {
+  taskForm.addEventListener('submit', async event => {
     event.preventDefault()
 
     const formData = new FormData(taskForm)
@@ -30,10 +30,14 @@ export const renderForm = () => {
     const esValido = validFormAddTask(data)
 
     if (esValido) {
-      taskManager.addTask(data)
-      renderFilters()
-      event.target.reset()
-      triggerToast('Tarea creada correctamente', 'success')
+      try {
+        await taskManager.addTask(data)
+        renderFilters()
+        event.target.reset()
+        triggerToast('Tarea creada correctamente', 'success')
+      } catch (error) {
+        triggerToast(`No se pudo crear la tarea: ${error.message}`, 'error')
+      }
     }
   })
 }

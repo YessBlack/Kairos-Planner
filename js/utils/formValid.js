@@ -1,7 +1,7 @@
 import { triggerToast } from './triggerToast.js'
 
 export const validFormAddTask = (data) => {
-  if (!data.name || data.name.trim() === '') {
+  if (!data.title || data.title.trim() === '') {
     triggerToast('El nombre no puede estar vacío.', 'error')
     return false
   }
@@ -23,7 +23,11 @@ export const validFormAddTask = (data) => {
     return false
   }
 
-  const todayStr = new Date().toLocaleDateString('en-CA')
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = String(today.getMonth() + 1).padStart(2, '0')
+  const day = String(today.getDate()).padStart(2, '0')
+  const todayStr = `${year}-${month}-${day}`
 
   if (data.deadline < todayStr) {
     triggerToast('La fecha de entrega no puede ser anterior a hoy.', 'error')

@@ -36,11 +36,13 @@
 .filter-title {
   font-weight: 600;
   font-size: 16px;
+  margin-bottom: 0.5rem;
 }
 
 .filter-text {
   font-size: 13px;
   color: var(--color-text-sm);
+  margin-bottom: 0.5rem;
 }
 
 .filter-count {
@@ -50,18 +52,18 @@
 }
 
 .all {
-  --state-color: var(--color-task);
+  --state-color: var(--color-primary);
 }
 
 .all:hover {
   background-color: color-mix(in srgb, var(--state-color) 8%, transparent);
 }
 
-.no-started {
+.not-started {
   --state-color: var(--color-info);
 }
 
-.no-started:hover {
+.not-started:hover {
   background-color: color-mix(in srgb, var(--state-color) 8%, transparent);
 }
 

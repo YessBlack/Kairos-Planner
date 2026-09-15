@@ -1,20 +1,19 @@
-import { getDateNow } from './utils/dateUtils.js'
-import { renderFilters } from './views/renderFilters.js'
+import { refreshTaskList, renderFilters } from './views/renderFilters.js'
 import { renderForm } from './views/renderForm.js'
 import { renderHeader } from './views/renderHeader.js'
-import { renderTasks } from './views/renderTasks.js'
-
-const renderDateNowHeader = () => {
-  const currentDate = document.getElementById('current-date')
-  currentDate.textContent = getDateNow()
-}
+import { renderModalDelete } from './views/renderModalDelete.js'
+import { renderModalEdit } from './views/renderModalEdit.js'
+import { initSubtaskModal } from './views/renderModalSubtaks.js'
+import { renderCalendar } from './views/renderCalendar.js'
 
 const init = () => {
   renderHeader()
-  renderDateNowHeader()
   renderForm()
-  renderTasks()
+  renderCalendar()
   renderFilters()
+  initSubtaskModal(refreshTaskList)
+  renderModalEdit()
+  renderModalDelete()
 
   // eslint-disable-next-line no-undef
   lucide.createIcons()
